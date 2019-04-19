@@ -328,7 +328,71 @@ public class LinkedBinaryTree<T> {
         return retVal+1;
     }
 
+    public void printTree(){
+        if(isEmpty()){
+            return;
+        }
 
 
+        int height = height(root());
+        int width = (int)Math.pow(2.0, ((double)height));
+        int spaces = width;
+        int depthCounter = 1;
+        int widthCounter = 0;
 
+        Queue<Position<T>> q = new Queue<>();
+        q.enqueue(root());
+
+        final Position<T> DEFUNCT = new Node(null,null,null,null);
+        final Position<T> BLANK = new Node(null,null,null,null);
+        q.enqueue(DEFUNCT);
+        int spaceCurrent = spaces;
+
+        for (int i = 0; i < spaces; i++){
+            System.out.print("-");
+        }
+        System.out.println();
+
+        while(depthCounter <= height){
+            Position<T> p = q.dequeue();
+            if (p == DEFUNCT){
+                q.enqueue(p);
+                spaceCurrent /= 2;
+                depthCounter++;
+                System.out.println(" ");
+            }
+            else{
+                for (int i = 0; i < spaceCurrent/2-2; i++){
+                    System.out.print(" ");
+                }
+                if (p != BLANK && p.getElement() != null){
+                    String out = p.getElement().toString() + "  ";
+                    out = out.substring(0,2);
+                    System.out.print(out);
+                }else{
+                    System.out.print("  ");
+                }
+                for (int i = 0; i < spaceCurrent/2; i++){
+                    System.out.print(" ");
+                }
+                if(left(p) != null){
+                    q.enqueue(left(p));
+                }else{
+                    q.enqueue(BLANK);
+                }
+                if(right(p) != null){
+                    q.enqueue(right(p));
+                }else{
+                    q.enqueue(BLANK);
+                }
+            }
+
+        }
+        for (int i = 0; i < spaces; i++){
+            System.out.print("-");
+        }
+        System.out.println();
+
+
+    }
 }

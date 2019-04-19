@@ -7,22 +7,21 @@ public class Runner {
 
 
     public static void main(String[] args){
-        LinkedBinaryTree<Integer> tree = new LinkedBinaryTree<>();
-        tree.addRoot(1);
-        Position<Integer> node = tree.addLeft(tree.root(),2);
-        tree.addLeft(node,3);
-        tree.addRight(node,4);
-        node = tree.addRight(tree.root(),5);
-        tree.addLeft(node,6);
-        tree.addRight(node,7);
-
-        Iterable<Position<Integer>> iter = tree.preOrder();
-
-        for (Position<Integer> item : iter){
-            System.out.print(item.getElement() + " ");
-        }
-        System.out.println(" h:" + tree.height(tree.root()));
-
+        BST<Integer, Integer> b = new BST<>();
+        b.put(0,0);
+        b.put(2,2);
+        b.put(1,1);
+        b.put(3,3);
+        b.put(-1,-1);
+        b.put(7,7);
+        b.put(4,4);
+        b.printTree();
+        b.remove(0);
+        b.printTree();
+        b.remove(-1);
+        b.printTree();
+        b.remove(4);
+        b.printTree();
     }
 
 }
