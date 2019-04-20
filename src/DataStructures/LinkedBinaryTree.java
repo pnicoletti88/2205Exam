@@ -7,14 +7,14 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LinkedBinaryTree<T> {
-    private class Node<T> implements Position<T> {
+    protected class Node<T> implements Position<T> {
         private Node left = null;
         private Node right = null;
         private Node parent = null;
         private T data;
 
-
-        Node(T data, Node left, Node right, Node parent) {
+        public Node(){}
+        public Node(T data, Node left, Node right, Node parent) {
             this.data = data;
             this.left = left;
             this.right = right;
@@ -174,7 +174,7 @@ public class LinkedBinaryTree<T> {
         }
         if(!t2.isEmpty()) {
             t2.root.setParent(node);
-            node.setLeft(t2.root);
+            node.setRight(t2.root);
             t2.root = null;
             t2.size = 0;
         }

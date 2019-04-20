@@ -8,6 +8,8 @@ public class BST <K,V>{
         K key;
         V value;
 
+        BSTEntry(){}
+
         BSTEntry(K key, V value){
             this.key = key;
             this.value = value;
