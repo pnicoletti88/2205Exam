@@ -12,7 +12,7 @@ public class Queue<T> {
     }
 
     public T peek(){
-        return base.tail.data;
+        return base.tail.element;
     }
 
     public boolean isEmpty(){

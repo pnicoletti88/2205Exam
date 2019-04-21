@@ -1,13 +1,16 @@
 package DataStructures;
 
 public class SinglyLinkedList<T> {
-    public class Node{
+    public class Node implements Position<T> {
         public Node next = null;
-        public T data = null;
+        public T element = null;
 
         Node(T inData, Node nextNode){
             next = nextNode;
-            data = inData;
+            element = inData;
+        }
+        public T getElement() {
+            return element;
         }
     }
     public Node head = null;
@@ -36,7 +39,7 @@ public class SinglyLinkedList<T> {
         if(head == null){
             return null;
         }
-        T data = head.data;
+        T data = head.element;
         if(head == tail){
             head = tail = null;
         }else{
@@ -49,7 +52,7 @@ public class SinglyLinkedList<T> {
     public void printLinkedList(){
         Node tempHead = head;
         while (tempHead != null){
-            System.out.print(tempHead.data + " -> ");
+            System.out.print(tempHead.element + " -> ");
             tempHead = tempHead.next;
         }
     }

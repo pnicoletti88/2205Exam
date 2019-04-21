@@ -229,7 +229,7 @@ public class LinkedBinaryTree<T> {
     public Iterable<Position<T>>  postOrder(){
         List<Position<T>> snapshot = new ArrayList<Position<T>>();
         if(!isEmpty()){
-            postOrderSubtree(root, snapshot);
+            postOrderSubtreeNoRecursion(root, snapshot);
         }
         return snapshot;
     }
@@ -237,7 +237,7 @@ public class LinkedBinaryTree<T> {
     public Iterable<Position<T>>  inOrder(){
         List<Position<T>> snapshot = new ArrayList<Position<T>>();
         if(!isEmpty()){
-            inOrderSubtree(root, snapshot);
+            inOrderSubtreeNoRecursion(root, snapshot);
         }
         return snapshot;
     }
@@ -254,7 +254,6 @@ public class LinkedBinaryTree<T> {
         Node<T> node = validate(p);
         boolean newNode = true; //this indicates if it the first time visiting a node
         while (node != null){
-            System.out.println(node.getElement());
             if (newNode) {
                 snapshot.add(node);
             }
@@ -283,8 +282,28 @@ public class LinkedBinaryTree<T> {
         snapshot.add(p);
     }
 
+    @SuppressWarnings("Duplicates")
     public void postOrderSubtreeNoRecursion(Position<T> p, List<Position<T>> snapshot){
-
+        Stack<Position<T>> s = new Stack<>();
+        Position<T> currRoot = p;
+        do{
+            while(currRoot != null){
+                if (right(currRoot) != null){
+                    s.push(right(currRoot));
+                }
+                s.push(currRoot);
+                currRoot = left(currRoot);
+            }
+            currRoot = s.pop();
+            if(!s.isEmpty() && s.peek() == right(currRoot)){
+                s.pop();
+                s.push(currRoot);
+                currRoot = right(s.peek());
+            }else{
+                snapshot.add(currRoot);
+                currRoot = null;
+            }
+        }while(!s.isEmpty());
     }
 
     public void inOrderSubtree(Position<T> p, List<Position<T>> snapshot){
@@ -298,8 +317,22 @@ public class LinkedBinaryTree<T> {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     public void inOrderSubtreeNoRecursion(Position<T> p, List<Position<T>> snapshot){
-
+        Stack<Position<T>> s = new Stack<>();
+        Position<T> current = p;
+        do{
+            while(current != null) {
+                if (right(current) != null) {
+                    s.push(right(current));
+                }
+                s.push(current);
+                current = left(current);
+            }
+            if(!s.isEmpty()){ snapshot.add(s.pop());}
+            if(!s.isEmpty()){ snapshot.add(s.pop());}
+            if(!s.isEmpty()){ current = s.pop();}
+        }while(!(s.isEmpty() && current == null));
     }
 
 
@@ -362,7 +395,7 @@ public class LinkedBinaryTree<T> {
                 System.out.println(" ");
             }
             else{
-                for (int i = 0; i < spaceCurrent/2-2; i++){
+                for (int i = 0; i < spaceCurrent/2-1; i++){
                     System.out.print(" ");
                 }
                 if (p != BLANK && p.getElement() != null){
@@ -372,7 +405,7 @@ public class LinkedBinaryTree<T> {
                 }else{
                     System.out.print("  ");
                 }
-                for (int i = 0; i < spaceCurrent/2; i++){
+                for (int i = 0; i < spaceCurrent/2-1; i++){
                     System.out.print(" ");
                 }
                 if(left(p) != null){

@@ -12,7 +12,7 @@ public class Stack<T> {
     }
 
     public T peek(){
-        return base.head.data;
+        return base.head.element;
     }
 
     public boolean isEmpty(){

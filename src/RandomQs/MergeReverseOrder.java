@@ -32,13 +32,13 @@ public class MergeReverseOrder {
             }
             return L1;
         }
-        if ((int)(L1.data) > (int)(L2.data)){
-            System.out.println("L1: " + L1.data + " > L2: " + L2.data);
+        if ((int)(L1.element) > (int)(L2.element)){
+            System.out.println("L1: " + L1.element + " > L2: " + L2.element);
             SinglyLinkedList.Node temp = merger(L1.next, L2);
             temp.next = L1;
             return L1;
         }else{
-            System.out.println("L1: " + L1.data + " <= L2: " + L2.data);
+            System.out.println("L1: " + L1.element + " <= L2: " + L2.element);
             SinglyLinkedList.Node temp = merger(L1, L2.next);
             temp.next = L2;
             return L2;

@@ -31,7 +31,7 @@ public class BST <K,V>{
         }
     }
 
-    private LinkedBinaryTree<Entry<K,V>> tree = new LinkedBinaryTree<>();
+    private AVL_Tree<K,V> tree = new AVL_Tree<>();
     private Comparator<K> comparator = new DefaultComparator<>();
 
     public BST(){
@@ -63,6 +63,7 @@ public class BST <K,V>{
             tree.set(p,newEntry);
             tempVal = p.getElement().getValue();
         }
+        tree.rebalance(p);
         return tempVal;
     }
 
@@ -122,5 +123,15 @@ public class BST <K,V>{
         tree.printTree();
     }
 
+    public void rotate(K key){
+        tree.rotate(treeSearch(tree.root(),key));
+    }
 
+    public void resturcture(K key){
+        tree.restructure(treeSearch(tree.root(),key));
+    }
+
+    public int rootHeight(){
+        return tree.height(tree.root());
+    }
 }

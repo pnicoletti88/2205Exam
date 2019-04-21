@@ -6,11 +6,11 @@ public class SinglyLinkedListAverage {
     float computeAvg(SinglyLinkedList<Integer>.Node node, int n){
         float average;
         if (node.next != null){
-            node.next.data = Integer.sum(node.data , (int)node.next.data);
+            node.next.element = Integer.sum(node.element, (int)node.next.element);
             average = computeAvg(node.next,n+1);
-            node.next.data = (int)node.next.data - node.data;
+            node.next.element = (int)node.next.element - node.element;
         }else{
-            average = node.data / (n+1);
+            average = node.element / (n+1);
         }
         return average;
     }

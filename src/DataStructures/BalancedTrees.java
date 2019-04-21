@@ -6,7 +6,7 @@ public class BalancedTrees<K,V> extends LinkedBinaryTree<Entry<K,V>>{
             super(data,left,right,parent);
         }
 
-        private int aux;
+        private int aux = 0;
         public int getAux() {
             return aux;
         }
@@ -28,6 +28,9 @@ public class BalancedTrees<K,V> extends LinkedBinaryTree<Entry<K,V>>{
     }
 
     private void relink(Node<Entry<K,V>> p, Node<Entry<K,V>> c, boolean leftChild){
+        if (c==null){
+            System.out.println("fuck");
+        }
         c.setParent(p);
         if(leftChild){
             p.setLeft(c);
@@ -50,13 +53,33 @@ public class BalancedTrees<K,V> extends LinkedBinaryTree<Entry<K,V>>{
             relink(grandParent,child,parent == grandParent.getLeft());
         }
         if (child == parent.getLeft()){
-            relink(parent,child.getRight(),true);
-            relink(child,parent,false);
+            relink(parent,child.getRight(),true); //parent get right child as its child
+            relink(child,parent,false); //parent becomes child of child
         }else{
-            relink(parent,child.getLeft(),false);
-            relink(child,parent,true);
+            relink(parent,child.getLeft(),false); //parent get left child as it child
+            relink(child,parent,true); //parent becomes child of child
         }
     }
+
+    public Position<Entry<K,V>> restructure(Position<Entry<K,V>> child){
+        Position<Entry<K,V>> parent = parent(child);
+        Position<Entry<K,V>> grandParent = parent(parent);
+        if(grandParent==null){
+            rotate(child);
+            return child;
+        }
+        if ((child == right(parent)) == (parent == right(grandParent))){
+            rotate(parent);
+            return parent;
+        }else{ //double rotation
+            rotate(child); //gets it into straight line alginment
+            rotate(child);//child is now second in line its the normal rotation
+            return child;
+        }
+
+    }
+
+
 
 
 
